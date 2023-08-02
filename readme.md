@@ -310,10 +310,15 @@ services:
 ## Open Issues
 
 We are investigating the following improvements (comments requested):
+&nbsp;
+
+### 1. Not running under windows
+
+The server builds, starts, and connects to the database.  The web app, however, fails to start in the browser.
 
 &nbsp;
 
-### 1. `www/admin-app`
+### 2. `www/admin-app`
 
 This is now obtained through an install step.  Please report issues / reactions.
 
