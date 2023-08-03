@@ -1,13 +1,5 @@
-# preferred
-# cd <project> (or use IDE terminal)
-# cd devops/docker-compose
-# sh docker-compose.sh
-
-# or, for debug / more logging...
-# set APILOGICPROJECT_CLIENT_URI, and use "for testing", below
 # cd postgres-docker-compose
 # docker-compose -f ./devops/docker-compose/docker-compose.yml up
-
 # --> builds, runs at localhost
 
 version: "3.5"
@@ -15,11 +7,9 @@ version: "3.5"
 services:
     api-logic-server:
         environment:
-          - APILOGICPROJECT_VERBOSE=true
-          # for testing
-          # - APILOGICPROJECT_CLIENT_URI=//10.0.0.77
-          # HOST_IP set in docker-compose.sh/ps1
-          - APILOGICPROJECT_CLIENT_URI=//${HOST_IP}
+          #- APILOGICPROJECT_API_PREFIX=/sqlite-api
+          # configure-me
+          - APILOGICPROJECT_CLIENT_URI=//10.0.0.77
           - SECURITY_ENABLED=true
           - PYTHONPATH=/app/ApiLogicProject 
           - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=postgresql://postgres:p@nw_postgres/postgres
@@ -31,11 +21,10 @@ services:
             - 5000
         volumes:
             - /Users/val/dev/ApiLogicServer/ApiLogicServer-dev/org_git/docker-compose-nw-postgres:/app
-            # relative path - thanks https://stackoverflow.com/questions/46907558/docker-compose-relative-paths-vs-docker-volume
-            - ./../..:/app
-        # https://stackoverflow.com/questions/39460892/gunicorn-no-module-named-myproject
+            - /Users/val/dev/ApiLogicServer/ApiLogicServer-dev/org_git/docker-compose-nw-postgres:/mm
+            # see APILOGICSERVER_HOME (09.01.19) - ./ApiLogicProject/ui/safrs-react-admin:/src/apilogicserver/api_logic_server_cli/create_from_model/safrs-react-admin-npm-build
         command: /usr/local/bin/gunicorn --reload --workers 2 --worker-connections 2 --access-logfile=- --pythonpath /app -b :5000 api_logic_server_run:flask_app 
-        # command:  bash /app/start.sh
+        # command:  bash /mm/start.sh #/app/ApiLogicProject/start.sh
         working_dir: /app/ApiLogicProject 
 
     nginx:
