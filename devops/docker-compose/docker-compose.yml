@@ -30,7 +30,7 @@ services:
         expose:
             - 5000
         volumes:
-            - /Users/val/dev/ApiLogicServer/ApiLogicServer-dev/org_git/docker-compose-nw-postgres:/app
+            # - /Users/val/dev/ApiLogicServer/ApiLogicServer-dev/org_git/docker-compose-nw-postgres:/app
             # relative path - thanks https://stackoverflow.com/questions/46907558/docker-compose-relative-paths-vs-docker-volume
             - ./../..:/app
         # https://stackoverflow.com/questions/39460892/gunicorn-no-module-named-myproject
